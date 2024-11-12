@@ -39,7 +39,7 @@ dotnet build
 ## Step 4: Install Required Browsers and Update .NET Version
 To install Playwright's required browsers, use the following PowerShell command:
 ```bash
-pwsh bin/Debug/net8.0/playwright.ps1 install
+powershell.exe -File bin\Debug\net8.0\playwright.ps1 install
 ```
 
 ##Step 5: Write Your First Playwright Test
