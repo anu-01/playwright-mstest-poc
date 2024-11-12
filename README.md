@@ -88,30 +88,21 @@ dotnet test
 ## Step 7: Configure MSTest to Run Tests in Parallel
 To enable parallel test execution in NUnit, create a .runsettings file in the root directory of your project and configure the settings as shown below:
 
-Create a file named Chrome.runsettings.
+Create a file named edge.runsettings.
 
 Add the following content:
 
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
-  <!-- MSTest adapter -->  
   <MSTest>
     <Parallelize>
       <Workers>4</Workers>
       <Scope>ClassLevel</Scope>
     </Parallelize>
   </MSTest>
-  <!-- General run configuration -->
-  <RunConfiguration>
-    <EnvironmentVariables>
-      <!-- For debugging selectors, it's recommend to set the following environment variable -->
-      <DEBUG>pw:api</DEBUG>
-    </EnvironmentVariables>
-  </RunConfiguration>
-  <!-- Playwright -->  
   <Playwright>
     <BrowserName>chromium</BrowserName>
-    <ExpectTimeout>5000</ExpectTimeout>
     <LaunchOptions>
       <Headless>false</Headless>
       <Channel>msedge</Channel>
@@ -121,7 +112,7 @@ Add the following content:
 ```
 When running tests, use the --settings option to specify the .runsettings file:
 ```bash
-dotnet test --settings Chrome.runsettings
+dotnet test --settings edge.runsettings
 ```
 
 This guide should give you a solid start with Playwright and .NET. For further details, refer to the [Playwright documentation](https://playwright.dev/dotnet/docs/writing-tests).
