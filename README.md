@@ -14,7 +14,7 @@ This guide provides a step-by-step introduction to setting up Playwright with .N
 First, create a new .NET test project using NUnit:
 
 ```bash
-dotnet new nunit -n PlaywrightTests
+dotnet new mstest -n PlaywrightTests
 cd PlaywrightTests
 ```
 
@@ -42,7 +42,7 @@ To install Playwright's required browsers, use the following PowerShell command:
 powershell.exe -File bin\Debug\net8.0\playwright.ps1 install
 ```
 
-##Step 5: Write Your First Playwright Test
+## Step 5: Write Your First Playwright Test
 In your test project, add the following sample test to get started with Playwright:
 ```csharp
 using System.Text.RegularExpressions;
@@ -59,7 +59,7 @@ public class ExampleTest : PageTest
     {
         await Page.GotoAsync("https://playwright.dev");
 
-        // Expect a title to contain a substring.
+        // Expect a title "to contain" a substring.
         await Expect(Page).ToHaveTitleAsync(new Regex("Playwright"));
     }
 
@@ -68,24 +68,24 @@ public class ExampleTest : PageTest
     {
         await Page.GotoAsync("https://playwright.dev");
 
-        // Click the "Get started" link.
+        // Click the get started link.
         await Page.GetByRole(AriaRole.Link, new() { Name = "Get started" }).ClickAsync();
 
-        // Expect page to have a heading with the name "Installation."
+        // Expects page to have a heading with the name of Installation.
         await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Installation" })).ToBeVisibleAsync();
     } 
 }
 
 ```
 
-##Step 6: Run the Test
+## Step 6: Run the Test
 Run your tests with the following command:
 
 ```bash
 dotnet test
 ```
 
-##Step 7: Configure NUnit to Run Tests in Parallel
+## Step 7: Configure MSTest to Run Tests in Parallel
 To enable parallel test execution in NUnit, create a .runsettings file in the root directory of your project and configure the settings as shown below:
 
 Create a file named Chrome.runsettings.
@@ -93,12 +93,14 @@ Create a file named Chrome.runsettings.
 Add the following content:
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
-  <!-- NUnit adapter -->  
-  <NUnit>
-    <NumberOfTestWorkers>24</NumberOfTestWorkers>
-  </NUnit>
+  <!-- MSTest adapter -->  
+  <MSTest>
+    <Parallelize>
+      <Workers>4</Workers>
+      <Scope>ClassLevel</Scope>
+    </Parallelize>
+  </MSTest>
   <!-- General run configuration -->
   <RunConfiguration>
     <EnvironmentVariables>
@@ -120,6 +122,6 @@ Add the following content:
 When running tests, use the --settings option to specify the .runsettings file:
 ```bash
 dotnet test --settings Chrome.runsettings
-
 ```
+
 This guide should give you a solid start with Playwright and .NET. For further details, refer to the [Playwright documentation](https://playwright.dev/dotnet/docs/writing-tests).
